@@ -21,7 +21,7 @@
   </div>
   <form th:action method="post" enctype="multipart/form-data">
     <ul>
-      <li>이미지 파일<input type="file" name="imageFile" ></li>
+      <li>이미지 파일<input type="file" name="uploadFile" ></li>
       <li>글 <input type="text" name="contents"></li>
     </ul>
     <div class="row">
@@ -32,7 +32,7 @@
       <div class="col">
         <button class="w-100 btn btn-secondary btn-lg"
                 onclick="location.href='items.html'"
-                th:onclick="|location.href='@{/home}'|"
+                th:onclick="|location.href='@{/}'|"
                 type="button">취소</button>
       </div>
     </div>

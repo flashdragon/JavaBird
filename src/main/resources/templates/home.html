@@ -51,6 +51,16 @@
             </div>
         </div>
     </form>
+    <div class="py-5 text-center">
+        <h4 class="mb-3" th:text="|게시물|"></h4>
+    </div>
+    <div>
+        <div th:each="post : ${posts}">
+            <img th:src="|/images/${post.uploadFile.getStoredName()}|"  width="700" height="300" />
+            <div th:text="${post.postId}">10000</div>
+            <div th:text="${post.memberId}">10</div>
+        </div>
+    </div>
 </div> <!-- /container -->
 </body>
 </html>
