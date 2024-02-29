@@ -11,13 +11,14 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 @Controller
 @Slf4j
@@ -47,4 +48,23 @@ public class PostController {
 
         return "redirect:/";
     }
+
+    @ResponseBody
+    @GetMapping("/images/{imageName}")
+    public Resource downloadImage(@PathVariable String imageName) throws MalformedURLException {
+        return new UrlResource("file:" + fileStore.getFullPath(imageName));
+    }
+
+    @PostMapping("/post/{postId}/delete")
+    public String deletePost(@PathVariable Long postId, HttpServletRequest request) throws IOException {
+        log.info("deletePost");
+
+        HttpSession session = request.getSession();
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        postRepository.delete(postId, loginMember.getId());
+
+        return "redirect:/";
+    }
+
 }

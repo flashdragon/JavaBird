@@ -9,4 +9,5 @@ public class Post {
     private Long memberId;
     private ImageFile uploadFile;
     private String contents;
+    private String name;
 }
