@@ -57,9 +57,10 @@
     <div class="row">
         <div th:each="post : ${posts}">
             <form th:action="|/follow/${post.postId}|" method="post">
+                <br>
                 <img th:src="|/images/${post.uploadFile.getStoredName()}|"  width="550" height="300" />
                 <div th:text="${post.contents}">글</div>
-                <div th:text="|${post.name}의 게시물|">이름</div>
+                <div th:text="|${post.name}님의 게시물|">이름</div>
             </form>
         </div>
     </div>

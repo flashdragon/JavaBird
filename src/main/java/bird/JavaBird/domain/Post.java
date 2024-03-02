@@ -10,4 +10,5 @@ public class Post {
     private ImageFile uploadFile;
     private String contents;
     private String name;
+    private boolean follow;
 }

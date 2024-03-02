@@ -40,11 +40,17 @@
     <div>
         <div th:each="post : ${posts}">
             <form th:action="|/follow/${post.memberId}|" method="post">
+                <br>
                 <img th:src="|/images/${post.uploadFile.getStoredName()}|"  width="550" height="300" />
                 <div th:text="${post.contents}">글</div>
-                <div th:text="|${post.name}의 게시물|">이름</div>
-                <button th:if="|${post.memberId!=member.id}|" class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'" type="submit">
+                <div th:text="|${post.name}님의 게시물|">이름</div>
+                <button th:if="|${post.memberId!=member.id and !post.follow}|" class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'" type="submit">
                     팔로우
+                </button>
+            </form>
+            <form th:action="|/unfollow/${post.memberId}|" method="post">
+                <button th:if="|${post.memberId!=member.id and post.follow}|" class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'" type="submit">
+                    언팔로우
                 </button>
             </form>
             <form th:action="|/post/${post.postId}/delete|" method="post">
