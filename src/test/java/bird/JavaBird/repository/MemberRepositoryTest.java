@@ -1,9 +1,8 @@
 package bird.JavaBird.repository;
 
 import bird.JavaBird.domain.Member;
-import com.zaxxer.hikari.HikariDataSource;
+import bird.JavaBird.repository.member.JdbcTemplateMemberRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,9 +13,6 @@ import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
 
-import java.util.Optional;
-
-import static bird.JavaBird.ConnectionConst.*;
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -34,7 +30,7 @@ public class MemberRepositoryTest {
         }
         @Bean
         MemberRepository memberRepository() {
-            return new MemberRepository(dataSource);
+            return new JdbcTemplateMemberRepository(dataSource);
         }
 
     }

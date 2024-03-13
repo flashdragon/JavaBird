@@ -25,10 +25,7 @@ public class SignupController {
     @PostMapping("/signup")
     public String addMember(@Valid @ModelAttribute("signupForm")SignUpForm form) {
         log.info("post signup name={} password={} nickname={}", form.getMemberName(), form.getPassword(), form.getNickName());
-        Member member = new Member();
-        member.setMemberName(form.getMemberName());
-        member.setNickName(form.getNickName());
-        member.setPassword(form.getPassword());
+        Member member = new Member(form.getMemberName(), form.getPassword(), form.getNickName());
         memberRepository.save(member);
         return "redirect:/";
     }

@@ -1,8 +1,6 @@
 package bird.JavaBird.service;
 
-import bird.JavaBird.domain.Member;
 import bird.JavaBird.repository.FollowRepository;
-import bird.JavaBird.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

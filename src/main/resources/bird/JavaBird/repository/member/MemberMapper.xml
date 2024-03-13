@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bird.JavaBird.repository.member.MemberMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into member (member_name, password, nick_name)
+        values (#{memberName}, #{password}, #{nickName})
+    </insert>
+
+
+    <select id="findById" resultType="Member">
+        select id, member_name, password, nick_name
+        from member
+        where id = #{id}
+    </select>
+
+    <select id="findByMemberName" resultType="Member">
+        select id, member_name, password, nick_name
+        from member
+        where member_name = #{memberName}
+    </select>
+
+    <delete id="delete">
+        delete from member
+        where id = #{id}
+    </delete>
+
+</mapper>

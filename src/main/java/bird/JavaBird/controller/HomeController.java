@@ -1,11 +1,12 @@
 package bird.JavaBird.controller;
 
 import bird.JavaBird.SessionConst;
+import bird.JavaBird.domain.Display;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
 import bird.JavaBird.repository.MemberRepository;
-import bird.JavaBird.repository.PostRepository;
 import bird.JavaBird.service.FollowService;
+import bird.JavaBird.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,21 +20,28 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class HomeController {
-    private final PostRepository postRepository;
+    private final PostService postService;
     private final MemberRepository memberRepository;
 
     private final FollowService followService;
     @GetMapping("/")
     public String home(@ModelAttribute("loginForm") LoginForm form, @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
         log.info("home controller {}", loginMember);
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postService.findAll();
+        List<Display> displays = new ArrayList<>();
         for (Post p : posts) {
-            p.setName(memberRepository.findById(p.getMemberId()).getNickName());
+            Display d = new Display();
+            d.setName(memberRepository.findById(p.getMemberId()).getNickName());
+            d.setPostId(p.getPostId());
+            d.setMemberId(p.getMemberId());
+            d.setUploadFile(p.getUploadFile());
+            d.setContents(p.getContents());
             if (loginMember != null) {
-                p.setFollow(followService.isFollow(loginMember.getId(), p.getMemberId()));
+                d.setFollow(followService.isFollow(loginMember.getId(), p.getMemberId()));
             }
+            displays.add(d);
         }
-        model.addAttribute("posts", posts);
+        model.addAttribute("posts", displays);
         if (loginMember == null) {
             return "home";
         }

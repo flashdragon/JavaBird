@@ -6,6 +6,14 @@ import lombok.Data;
 public class Member {
     private Long id;
     private String memberName;
-    private String nickName;
     private String password;
+    private String nickName;
+    public Member() {
+
+    }
+    public Member(String memberName, String password, String nickName) {
+        this.memberName = memberName;
+        this.password = password;
+        this.nickName = nickName;
+    }
 }
