@@ -5,7 +5,8 @@
 
 
 # class 다이어그램
-![image](https://github.com/flashdragon/JavaBird/assets/35221784/20796f93-d96e-407c-8df0-71167a8d6c57)
+![image](https://github.com/flashdragon/JavaBird/assets/35221784/e2ea88a5-1704-40f7-a539-7db2830bf6fa)
+
 
 
 # 그림
