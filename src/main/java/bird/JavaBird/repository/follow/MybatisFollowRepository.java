@@ -3,9 +3,11 @@ package bird.JavaBird.repository.follow;
 import bird.JavaBird.repository.FollowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class MybatisFollowRepository implements FollowRepository {
 
     private final FollowMapper followMapper;

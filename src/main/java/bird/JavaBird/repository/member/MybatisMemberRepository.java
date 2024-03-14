@@ -4,11 +4,13 @@ import bird.JavaBird.domain.Member;
 import bird.JavaBird.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class MybatisMemberRepository implements MemberRepository {
 
     private final MemberMapper memberMapper;

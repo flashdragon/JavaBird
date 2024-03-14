@@ -4,11 +4,13 @@ import bird.JavaBird.repository.FollowRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 
 //@Repository
 @Slf4j
+@Transactional
 public class JdbcTemplateFollowRepository implements FollowRepository {
 
     private final JdbcTemplate template;

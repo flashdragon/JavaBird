@@ -3,10 +3,12 @@ package bird.JavaBird.service;
 import bird.JavaBird.repository.FollowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FollowService {
     private final FollowRepository followRepository;
 

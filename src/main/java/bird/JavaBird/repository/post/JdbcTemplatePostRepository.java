@@ -7,12 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.List;
 
 //@Repository
 @Slf4j
+@Transactional
 public class JdbcTemplatePostRepository implements PostRepository {
     private final JdbcTemplate template;
     public JdbcTemplatePostRepository(DataSource dataSource) {

@@ -4,10 +4,12 @@ import bird.JavaBird.domain.Post;
 import bird.JavaBird.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class MybatisPostRepository implements PostRepository {
     private final PostMapper postMapper;
     @Override
