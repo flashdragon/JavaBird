@@ -4,8 +4,9 @@
 #### #Java #Spring #MyBatis
 
 
-# class 다이어그램
-![image](https://github.com/flashdragon/JavaBird/assets/35221784/e2ea88a5-1704-40f7-a539-7db2830bf6fa)
+# 정적인 class 의존관계
+![image](https://github.com/flashdragon/JavaBird/assets/35221784/767649e3-a7b3-4792-ae37-3a00ebac14f9)
+
 
 
 
