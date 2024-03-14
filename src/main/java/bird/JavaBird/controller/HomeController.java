@@ -30,11 +30,12 @@ public class HomeController {
         List<Post> posts = postService.findAll();
         List<Display> displays = new ArrayList<>();
         for (Post p : posts) {
+            log.info("{}", p);
             Display d = new Display();
             d.setName(memberRepository.findById(p.getMemberId()).getNickName());
             d.setPostId(p.getPostId());
             d.setMemberId(p.getMemberId());
-            d.setUploadFile(p.getUploadFile());
+            d.setImageFile(p.getImageFile());
             d.setContents(p.getContents());
             if (loginMember != null) {
                 d.setFollow(followService.isFollow(loginMember.getId(), p.getMemberId()));

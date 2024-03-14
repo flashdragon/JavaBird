@@ -7,6 +7,6 @@ public class Post {
 
     private Long postId;
     private Long memberId;
-    private ImageFile uploadFile;
+    private ImageFile imageFile;
     private String contents;
 }

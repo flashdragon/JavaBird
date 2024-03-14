@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class PostForm {
-    private MultipartFile uploadFile;
+    private MultipartFile imageFile;
     @NotEmpty
     private String contents;
 }

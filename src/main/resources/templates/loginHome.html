@@ -41,7 +41,7 @@
         <div th:each="post : ${posts}">
             <form th:action="|/follow/${post.memberId}|" method="post">
                 <br>
-                <img th:src="|/images/${post.uploadFile.getStoredName()}|"  width="550" height="300" />
+                <img th:src="|/images/${post.imageFile.getStoredName()}|"  width="550" height="300" />
                 <div th:text="${post.contents}">글</div>
                 <div th:text="|${post.name}님의 게시물|">이름</div>
                 <button th:if="|${post.memberId!=member.id and !post.follow}|" class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'" type="submit">

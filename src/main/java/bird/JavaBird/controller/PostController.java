@@ -39,7 +39,7 @@ public class PostController {
         if (bindingResult.hasErrors()) {
             return "upload-form";
         }
-        ImageFile imageFile = fileStore.storeFile(form.getUploadFile());
+        ImageFile imageFile = fileStore.storeFile(form.getImageFile());
 
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
@@ -47,7 +47,7 @@ public class PostController {
         Post post = new Post();
         post.setMemberId(loginMember.getId());
         post.setContents(form.getContents());
-        post.setUploadFile(imageFile);
+        post.setImageFile(imageFile);
         postService.save(post);
 
         return "redirect:/";

@@ -21,7 +21,7 @@ public class FollowController {
     private final FollowService followService;
 
     @PostMapping("/follow/{memberId}")
-    public String following(@PathVariable Long memberId, HttpServletRequest request) throws IOException {
+    public String following(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
         log.info("following");
 
         HttpSession session = request.getSession();
@@ -33,7 +33,7 @@ public class FollowController {
     }
 
     @PostMapping("/unfollow/{memberId}")
-    public String unfollowing(@PathVariable Long memberId, HttpServletRequest request) throws IOException {
+    public String unfollowing(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
         log.info("following");
 
         HttpSession session = request.getSession();

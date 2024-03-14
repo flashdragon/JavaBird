@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.List;
 
-@Repository
+//@Repository
 @Slf4j
 public class JdbcTemplatePostRepository implements PostRepository {
     private final JdbcTemplate template;
@@ -22,7 +22,7 @@ public class JdbcTemplatePostRepository implements PostRepository {
     @Override
     public Post save(Post post) {
         String sql = "insert into post(memberid, name, storedname, contents) values (?, ?, ?, ?)";
-        template.update(sql, post.getMemberId(), post.getUploadFile().getImageName(), post.getUploadFile().getStoredName(), post.getContents());
+        template.update(sql, post.getMemberId(), post.getImageFile().getImageName(), post.getImageFile().getStoredName(), post.getContents());
         return post;
     }
     @Override
@@ -43,7 +43,7 @@ public class JdbcTemplatePostRepository implements PostRepository {
             post.setPostId(rs.getLong("postid"));
             post.setMemberId(rs.getLong("memberid"));
             post.setContents(rs.getString("contents"));
-            post.setUploadFile(new ImageFile(rs.getString("name"),rs.getString("storedname")));
+            post.setImageFile(new ImageFile(rs.getString("name"),rs.getString("storedname")));
             return post;
         };
     }

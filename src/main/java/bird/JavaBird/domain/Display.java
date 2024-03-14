@@ -6,7 +6,7 @@ import lombok.Data;
 public class Display {
     private Long postId;
     private Long memberId;
-    private ImageFile uploadFile;
+    private ImageFile imageFile;
     private String contents;
     private String name;
     private boolean follow;

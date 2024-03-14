@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
-@Repository
+//@Repository
 @Slf4j
 public class JdbcTemplateFollowRepository implements FollowRepository {
 
