@@ -6,6 +6,7 @@ import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
 import bird.JavaBird.repository.MemberRepository;
 import bird.JavaBird.service.FollowService;
+import bird.JavaBird.service.MemberService;
 import bird.JavaBird.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeController {
     private final PostService postService;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     private final FollowService followService;
     @GetMapping("/")
@@ -32,7 +33,7 @@ public class HomeController {
         for (Post p : posts) {
             log.info("{}", p);
             Display d = new Display();
-            d.setName(memberRepository.findById(p.getMemberId()).getNickName());
+            d.setName(memberService.findById(p.getMemberId()).getNickName());
             d.setPostId(p.getPostId());
             d.setMemberId(p.getMemberId());
             d.setImageFile(p.getImageFile());
