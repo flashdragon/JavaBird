@@ -5,7 +5,8 @@
 
 
 # class 다이어그램
-![image](https://github.com/flashdragon/JavaBird/assets/35221784/9ea2e8be-67cf-4b1c-b4dd-268976f7cea1)
+![image](https://github.com/flashdragon/JavaBird/assets/35221784/20796f93-d96e-407c-8df0-71167a8d6c57)
+
 
 # 그림
 ## 1. 홈 화면
