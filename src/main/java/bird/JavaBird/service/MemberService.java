@@ -20,4 +20,8 @@ public class MemberService {
         return memberRepository.findById(id);
     }
 
+    public Member login(String memberName, String password) {
+        return memberRepository.findByMemberName(memberName).filter(m -> m.getPassword().equals(password)).orElse(null);
+    }
+
 }

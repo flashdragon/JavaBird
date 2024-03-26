@@ -2,7 +2,7 @@ package bird.JavaBird.controller;
 
 import bird.JavaBird.SessionConst;
 import bird.JavaBird.domain.Member;
-import bird.JavaBird.service.LoginService;
+import bird.JavaBird.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Slf4j
 @RequiredArgsConstructor
 public class LoginController {
-    private final LoginService loginService;
+    private final MemberService memberService;
 
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
@@ -27,7 +27,7 @@ public class LoginController {
             return "home";
         }
 
-        Member loginMember = loginService.login(form.getMemberName(),form.getPassword());
+        Member loginMember = memberService.login(form.getMemberName(),form.getPassword());
 
         if (loginMember == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
