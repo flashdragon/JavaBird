@@ -3,6 +3,7 @@ package bird.JavaBird.apiController;
 import bird.JavaBird.SessionConst;
 import bird.JavaBird.controller.LoginForm;
 import bird.JavaBird.domain.Member;
+import bird.JavaBird.exception.LoginException;
 import bird.JavaBird.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -27,19 +28,13 @@ public class ApiLoginController {
                               HttpServletRequest request) {
         log.info("log in controller");
         if (bindingResult.hasErrors()) {
-            ResponseJson loginJson = new ResponseJson();
-            loginJson.setCode(400);
-            loginJson.setMessage("아이디 또는 비밀번호가 맞지 않습니다.");
-            return loginJson;
+            throw new LoginException("잘못된 사용자");
         }
 
         Member loginMember = memberService.login(form.getMemberName(),form.getPassword());
 
         if (loginMember == null) {
-            ResponseJson responseJson = new ResponseJson();
-            responseJson.setCode(400);
-            responseJson.setMessage("아이디 또는 비밀번호가 맞지 않습니다.");
-            return responseJson;
+            throw new LoginException("아이디 또는 비밀번호가 맞지 않습니다.");
         }
 
         //로그인 성공 처리

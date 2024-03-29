@@ -5,6 +5,7 @@ import bird.JavaBird.controller.PostForm;
 import bird.JavaBird.domain.ImageFile;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
+import bird.JavaBird.exception.LoginException;
 import bird.JavaBird.file.FileStore;
 import bird.JavaBird.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,10 +30,7 @@ public class ApiPostController {
     public ResponseJson uploadPost(@Valid @ModelAttribute PostForm form, BindingResult bindingResult, HttpServletRequest request) throws IOException {
         log.info("form={}", form);
         if (bindingResult.hasErrors()) {
-            ResponseJson responseJson = new ResponseJson();
-            responseJson.setCode(400);
-            responseJson.setMessage("잘못된 형식입니다.");
-            return responseJson;
+            throw new LoginException("잘못된 형식입니다.");
         }
         ImageFile imageFile = fileStore.storeFile(form.getImageFile());
 
