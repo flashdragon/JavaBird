@@ -7,6 +7,17 @@
 # 정적인 class 의존관계
 ![image](https://github.com/flashdragon/JavaBird/assets/35221784/767649e3-a7b3-4792-ae37-3a00ebac14f9)
 
+# API
+|method|url|설명|
+|----|----|----|
+|get|/api|홈화면으로 많은 post들의 정보를 가져온다.|
+|post|/api/login|로그인 사용자 정보를 준다.|
+|post|/api/logout|로그인 세션 삭제|
+|post|/api/post|포스터 생성|
+|delete|/api/{postId}|포스트 삭제|
+|post|/api/signup|회원 가입|
+|post|/api/follow/{memberId}|팔로우|
+|post|/api/unfollow/{memberId}|언팔로우|
 
 
 
