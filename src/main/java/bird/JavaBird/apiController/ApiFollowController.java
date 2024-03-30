@@ -22,6 +22,7 @@ public class ApiFollowController {
 
     private final FollowService followService;
 
+
     @PostMapping("/follow/{memberId}")
     public ResponseJson following(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
         log.info("following");

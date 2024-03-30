@@ -49,7 +49,7 @@ public class ApiPostController {
     }
 
 
-    @PostMapping("/post/{postId}/delete")
+    @DeleteMapping("/post/{postId}")
     public ResponseJson deletePost(@PathVariable("postId") Long postId, HttpServletRequest request) throws IOException {
         log.info("deletePost");
 

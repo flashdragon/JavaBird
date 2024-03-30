@@ -53,7 +53,7 @@
                     언팔로우
                 </button>
             </form>
-            <form th:action="|/post/${post.postId}/delete|" method="post">
+            <form th:action="|/post/${post.postId}|" method="delete">
                 <button th:if="|${post.memberId==member.id}|" class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'" type="submit">
                     삭제
                 </button>
