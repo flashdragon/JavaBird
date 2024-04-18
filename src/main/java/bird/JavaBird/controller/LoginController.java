@@ -1,6 +1,7 @@
 package bird.JavaBird.controller;
 
 import bird.JavaBird.SessionConst;
+import bird.JavaBird.aop.Retry;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
     private final MemberService memberService;
 
+    @Retry
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
                         HttpServletRequest request) {

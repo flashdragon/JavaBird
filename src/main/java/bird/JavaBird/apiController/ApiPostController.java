@@ -40,8 +40,7 @@ public class ApiPostController {
         Post post = new Post();
         post.setMemberId(loginMember.getId());
         post.setContents(form.getContents());
-        post.setImageFile(imageFile);
-        postService.save(post);
+        postService.save(post, form.getImageFile());
         ResponseJson responseJson = new ResponseJson();
         responseJson.setCode(200);
         responseJson.setMessage("success");

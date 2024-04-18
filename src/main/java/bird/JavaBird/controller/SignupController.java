@@ -1,5 +1,6 @@
 package bird.JavaBird.controller;
 
+import bird.JavaBird.aop.Retry;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.repository.MemberRepository;
 import bird.JavaBird.service.MemberService;
@@ -18,11 +19,13 @@ public class SignupController {
 
     private final MemberService memberService;
 
+    @Retry
     @GetMapping("/signup")
     public String signUp(@ModelAttribute("signupForm")SignUpForm form) {
         log.info("signup controller");
         return "signUp";
     }
+    @Retry
     @PostMapping("/signup")
     public String addMember(@Valid @ModelAttribute("signupForm")SignUpForm form) {
         log.info("post signup name={} password={} nickname={}", form.getMemberName(), form.getPassword(), form.getNickName());

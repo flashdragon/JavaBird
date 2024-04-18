@@ -1,6 +1,7 @@
 package bird.JavaBird.controller;
 
 import bird.JavaBird.SessionConst;
+import bird.JavaBird.aop.Retry;
 import bird.JavaBird.domain.Display;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
@@ -25,6 +26,7 @@ public class HomeController {
     private final MemberService memberService;
 
     private final FollowService followService;
+    @Retry
     @GetMapping("/")
     public String home(@ModelAttribute("loginForm") LoginForm form, @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
         log.info("home controller {}", loginMember);

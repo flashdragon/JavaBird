@@ -1,11 +1,10 @@
 package bird.JavaBird.controller;
 
 import bird.JavaBird.SessionConst;
-import bird.JavaBird.domain.ImageFile;
+import bird.JavaBird.aop.Retry;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
 import bird.JavaBird.file.FileStore;
-import bird.JavaBird.repository.PostRepository;
 import bird.JavaBird.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,6 +32,7 @@ public class PostController {
         return "upload-form";
     }
 
+    @Retry
     @PostMapping("/post")
     public String uploadPost(@Valid @ModelAttribute PostForm form, BindingResult bindingResult, HttpServletRequest request) throws IOException {
         log.info("form={}", form);
@@ -57,7 +57,7 @@ public class PostController {
         return new UrlResource("file:" + fileStore.getFullPath(imageName));
     }
 
-    @PostMapping("/post/{postId}/delete")
+    @DeleteMapping("/post/{postId}")
     public String deletePost(@PathVariable("postId") Long postId, HttpServletRequest request) throws IOException {
         log.info("deletePost");
 

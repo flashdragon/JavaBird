@@ -1,6 +1,7 @@
 package bird.JavaBird.controller;
 
 import bird.JavaBird.SessionConst;
+import bird.JavaBird.aop.Retry;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.service.FollowService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import java.io.IOException;
 public class FollowController {
 
     private final FollowService followService;
-
+    @Retry
     @PostMapping("/follow/{memberId}")
     public String following(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
         log.info("following");
@@ -32,6 +33,7 @@ public class FollowController {
         return "redirect:/";
     }
 
+    @Retry
     @PostMapping("/unfollow/{memberId}")
     public String unfollowing(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
         log.info("following");
