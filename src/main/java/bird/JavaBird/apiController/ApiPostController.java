@@ -33,8 +33,6 @@ public class ApiPostController {
         if (bindingResult.hasErrors()) {
             throw new PostException("잘못된 형식입니다.");
         }
-        ImageFile imageFile = fileStore.storeFile(form.getImageFile());
-
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
