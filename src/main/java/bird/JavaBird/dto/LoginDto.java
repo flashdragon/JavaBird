@@ -1,10 +1,10 @@
-package bird.JavaBird.controller;
+package bird.JavaBird.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class LoginForm {
+public class LoginDto {
 
     @NotEmpty
     private String memberName;

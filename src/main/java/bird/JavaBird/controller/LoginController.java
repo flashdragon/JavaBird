@@ -3,6 +3,7 @@ package bird.JavaBird.controller;
 import bird.JavaBird.SessionConst;
 import bird.JavaBird.aop.Retry;
 import bird.JavaBird.domain.Member;
+import bird.JavaBird.dto.LoginDto;
 import bird.JavaBird.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -22,7 +23,7 @@ public class LoginController {
 
     @Retry
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
+    public String login(@Valid @ModelAttribute("loginForm") LoginDto form, BindingResult bindingResult,
                         HttpServletRequest request) {
         log.info("log in controller");
         if (bindingResult.hasErrors()) {

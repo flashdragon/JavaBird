@@ -1,6 +1,7 @@
 package bird.JavaBird.service;
 
 import bird.JavaBird.domain.Member;
+import bird.JavaBird.exception.LoginException;
 import bird.JavaBird.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class MemberService {
     }
 
     public Member login(String memberName, String password) {
-        return memberRepository.findByMemberName(memberName).filter(m -> m.getPassword().equals(password)).orElse(null);
+        return memberRepository.findByMemberName(memberName).filter(m -> m.getPassword().equals(password)).orElseThrow(() -> new LoginException("잘못된 아이디 또는 비밀번호입니다."));
     }
 
 }

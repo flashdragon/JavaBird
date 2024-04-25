@@ -1,7 +1,7 @@
 package bird.JavaBird.apiController;
 
 import bird.JavaBird.SessionConst;
-import bird.JavaBird.controller.LoginForm;
+import bird.JavaBird.dto.LoginDto;
 import bird.JavaBird.domain.Display;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static bird.JavaBird.utils.ApiUtils.*;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class ApiHomeController {
 
     private final FollowService followService;
     @GetMapping
-    public List<Display> home(@ModelAttribute("loginForm") LoginForm form, @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
+    public ApiResult<List<Display>> home(@ModelAttribute("loginForm") LoginDto form, @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
         log.info("home controller {}", loginMember);
         List<Post> posts = postService.findAll();
         List<Display> displays = new ArrayList<>();
@@ -43,7 +44,7 @@ public class ApiHomeController {
             }
             displays.add(d);
         }
-        return displays;
+        return success(displays);
     }
 
 }

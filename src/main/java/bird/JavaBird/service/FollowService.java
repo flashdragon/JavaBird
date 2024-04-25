@@ -12,12 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class FollowService {
     private final FollowRepository followRepository;
 
-    public void following(Long member1Id, Long member2Id) {
+    public boolean following(Long member1Id, Long member2Id) {
         followRepository.following(member1Id, member2Id);
+        return true;
     }
 
-    public void unfollowing(Long member1Id, Long member2Id) {
+    public boolean unfollowing(Long member1Id, Long member2Id) {
         followRepository.unfollowing(member1Id, member2Id);
+        return true;
     }
 
     public boolean isFollow(Long member1Id, Long member2Id) {

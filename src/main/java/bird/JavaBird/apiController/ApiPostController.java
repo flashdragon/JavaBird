@@ -1,11 +1,11 @@
 package bird.JavaBird.apiController;
 
 import bird.JavaBird.SessionConst;
-import bird.JavaBird.controller.PostForm;
+import bird.JavaBird.dto.PostDto;
 import bird.JavaBird.domain.ImageFile;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
-import bird.JavaBird.exception.LoginException;
+import bird.JavaBird.exception.PostException;
 import bird.JavaBird.file.FileStore;
 import bird.JavaBird.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+import static bird.JavaBird.utils.ApiUtils.*;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -27,10 +28,10 @@ public class ApiPostController {
     private final FileStore fileStore;
 
     @PostMapping("/post")
-    public ResponseJson uploadPost(@Valid @ModelAttribute PostForm form, BindingResult bindingResult, HttpServletRequest request) throws IOException {
+    public ApiResult<Post> uploadPost(@Valid @ModelAttribute PostDto form, BindingResult bindingResult, HttpServletRequest request) throws IOException {
         log.info("form={}", form);
         if (bindingResult.hasErrors()) {
-            throw new LoginException("잘못된 형식입니다.");
+            throw new PostException("잘못된 형식입니다.");
         }
         ImageFile imageFile = fileStore.storeFile(form.getImageFile());
 
@@ -40,26 +41,18 @@ public class ApiPostController {
         Post post = new Post();
         post.setMemberId(loginMember.getId());
         post.setContents(form.getContents());
-        postService.save(post, form.getImageFile());
-        ResponseJson responseJson = new ResponseJson();
-        responseJson.setCode(200);
-        responseJson.setMessage("success");
-        return responseJson;
+        return success(postService.save(post, form.getImageFile()));
     }
 
 
     @DeleteMapping("/post/{postId}")
-    public ResponseJson deletePost(@PathVariable("postId") Long postId, HttpServletRequest request) throws IOException {
+    public ApiResult<Boolean> deletePost(@PathVariable("postId") Long postId, HttpServletRequest request) throws IOException {
         log.info("deletePost");
 
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
-        postService.delete(postId, loginMember.getId());
-        ResponseJson responseJson = new ResponseJson();
-        responseJson.setCode(200);
-        responseJson.setMessage("success");
-        return responseJson;
+        return success(postService.delete(postId, loginMember.getId()));
     }
 
 }

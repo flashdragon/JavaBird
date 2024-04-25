@@ -5,7 +5,7 @@ import bird.JavaBird.aop.Retry;
 import bird.JavaBird.domain.Display;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
-import bird.JavaBird.repository.MemberRepository;
+import bird.JavaBird.dto.LoginDto;
 import bird.JavaBird.service.FollowService;
 import bird.JavaBird.service.MemberService;
 import bird.JavaBird.service.PostService;
@@ -28,7 +28,7 @@ public class HomeController {
     private final FollowService followService;
     @Retry
     @GetMapping("/")
-    public String home(@ModelAttribute("loginForm") LoginForm form, @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
+    public String home(@ModelAttribute("loginForm") LoginDto form, @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
         log.info("home controller {}", loginMember);
         List<Post> posts = postService.findAll();
         List<Display> displays = new ArrayList<>();

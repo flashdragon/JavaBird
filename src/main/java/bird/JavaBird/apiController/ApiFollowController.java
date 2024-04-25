@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import static bird.JavaBird.utils.ApiUtils.*;
 
 @RestController
 @Slf4j
@@ -24,30 +25,22 @@ public class ApiFollowController {
 
 
     @PostMapping("/follow/{memberId}")
-    public ResponseJson following(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
+    public ApiResult<Boolean> following(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
         log.info("following");
 
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
-        followService.following(loginMember.getId(), memberId);
-        ResponseJson responseJson = new ResponseJson();
-        responseJson.setCode(200);
-        responseJson.setMessage("success");
-        return responseJson;
+        return success(followService.following(loginMember.getId(), memberId));
     }
 
     @PostMapping("/unfollow/{memberId}")
-    public ResponseJson unfollowing(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
+    public ApiResult<Boolean> unfollowing(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
         log.info("following");
 
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
-        followService.unfollowing(loginMember.getId(), memberId);
-        ResponseJson responseJson = new ResponseJson();
-        responseJson.setCode(200);
-        responseJson.setMessage("success");
-        return responseJson;
+        return success(followService.unfollowing(loginMember.getId(), memberId));
     }
 }

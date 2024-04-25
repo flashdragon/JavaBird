@@ -30,7 +30,8 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public void delete(Long postId, Long memberId) {
+    public boolean delete(Long postId, Long memberId) {
         postRepository.delete(postId, memberId);
+        return true;
     }
 }

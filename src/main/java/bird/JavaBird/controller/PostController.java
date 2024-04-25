@@ -4,6 +4,7 @@ import bird.JavaBird.SessionConst;
 import bird.JavaBird.aop.Retry;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
+import bird.JavaBird.dto.PostDto;
 import bird.JavaBird.file.FileStore;
 import bird.JavaBird.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,7 +35,7 @@ public class PostController {
 
     @Retry
     @PostMapping("/post")
-    public String uploadPost(@Valid @ModelAttribute PostForm form, BindingResult bindingResult, HttpServletRequest request) throws IOException {
+    public String uploadPost(@Valid @ModelAttribute PostDto form, BindingResult bindingResult, HttpServletRequest request) throws IOException {
         log.info("form={}", form);
         if (bindingResult.hasErrors()) {
             return "upload-form";
