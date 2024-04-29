@@ -5,6 +5,7 @@ import bird.JavaBird.domain.Member;
 import bird.JavaBird.exception.LoginException;
 import bird.JavaBird.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,5 +37,13 @@ public class ApiLoginController {
 
     }
 
+    @PostMapping("/logout")
+    public ApiResult<Boolean> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return success(true);
+    }
 
 }

@@ -20,8 +20,10 @@ public class PostService {
     private final FileStore fileStore;
 
     public Post save(Post post, MultipartFile file) throws IOException {
-        ImageFile imageFile = fileStore.storeFile(file);
-        post.setImageFile(imageFile);
+        if(!file.isEmpty()) {
+            ImageFile imageFile = fileStore.storeFile(file);
+            post.setImageFile(imageFile);
+        }
         postRepository.save(post);
         return post;
     }
