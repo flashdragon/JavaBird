@@ -5,11 +5,13 @@ import bird.JavaBird.dto.LoginDto;
 import bird.JavaBird.domain.Display;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
+import bird.JavaBird.dto.LoginInfoDto;
 import bird.JavaBird.service.FollowService;
 import bird.JavaBird.service.MemberService;
 import bird.JavaBird.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +29,9 @@ public class ApiHomeController {
 
     private final FollowService followService;
     @GetMapping
-    public ApiResult<List<Display>> home(@ModelAttribute("loginForm") LoginDto form, @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
-        log.info("home controller {}", loginMember);
+    public ApiResult<List<Display>> home(@ModelAttribute("loginForm") LoginDto form, Model model) {
+        log.info("{}",SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //log.info("home api controller {}", loginMember);
         List<Post> posts = postService.findAll();
         List<Display> displays = new ArrayList<>();
         for (Post p : posts) {
@@ -39,9 +42,9 @@ public class ApiHomeController {
             d.setMemberId(p.getMemberId());
             d.setImageFile(p.getImageFile());
             d.setContents(p.getContents());
-            if (loginMember != null) {
-                d.setFollow(followService.isFollow(loginMember.getId(), p.getMemberId()));
-            }
+            //if (loginMember != null) {
+            //    d.setFollow(followService.isFollow(loginMember.getId(), p.getMemberId()));
+            //}
             displays.add(d);
         }
         return success(displays);

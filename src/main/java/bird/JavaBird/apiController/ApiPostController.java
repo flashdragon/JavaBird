@@ -29,7 +29,7 @@ public class ApiPostController {
 
     @PostMapping("/post")
     public ApiResult<Post> uploadPost(@Valid @ModelAttribute PostDto form, BindingResult bindingResult, HttpServletRequest request) throws IOException {
-        log.info("form={}", form);
+        log.info("form ={}", form);
         if (bindingResult.hasErrors()) {
             throw new PostException("잘못된 형식입니다.");
         }

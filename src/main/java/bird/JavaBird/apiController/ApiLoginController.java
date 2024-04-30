@@ -2,7 +2,9 @@ package bird.JavaBird.apiController;
 
 import bird.JavaBird.dto.LoginDto;
 import bird.JavaBird.domain.Member;
+import bird.JavaBird.dto.LoginResponseDto;
 import bird.JavaBird.exception.LoginException;
+import bird.JavaBird.security.JwtTokenizer;
 import bird.JavaBird.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,25 +27,23 @@ import static bird.JavaBird.utils.ApiUtils.*;
 public class ApiLoginController {
     private final MemberService memberService;
 
+
+    private final JwtTokenizer jwtTokenizer;
+
     @PostMapping("/login")
-    public ApiResult<Member> login(@Valid @ModelAttribute("loginForm") LoginDto form, BindingResult bindingResult,
+    public ApiResult<LoginResponseDto> login(@Valid @ModelAttribute("loginForm") LoginDto form, BindingResult bindingResult,
                                    HttpServletRequest request) {
-        log.info("log in controller");
+        log.info("log in api controller");
         if (bindingResult.hasErrors()) {
             throw new LoginException("잘못된 사용자");
         }
 
-        return success(memberService.login(form.getMemberName(),form.getPassword()));
+        Member loginMember = memberService.login(form.getMemberName(),form.getPassword());
+        String token = jwtTokenizer.createToken(loginMember.getId(), loginMember.getMemberName());
 
-    }
 
-    @PostMapping("/logout")
-    public ApiResult<Boolean> logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        return success(true);
+        return success(new LoginResponseDto(loginMember, token));
+
     }
 
 }

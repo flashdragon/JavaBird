@@ -26,7 +26,7 @@ public class ApiFollowController {
 
     @PostMapping("/follow/{memberId}")
     public ApiResult<Boolean> following(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
-        log.info("following");
+        log.info("following api controller");
 
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);

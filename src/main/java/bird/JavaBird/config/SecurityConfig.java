@@ -3,37 +3,48 @@ package bird.JavaBird.config;
 import bird.JavaBird.security.EntryPointUnauthorizedHandler;
 import bird.JavaBird.security.JwtAuthenticationFilter;
 import bird.JavaBird.security.JwtAuthenticationProvider;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final EntryPointUnauthorizedHandler entryPointUnauthorizedHandler;
 
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
 
-    public SecurityConfig(EntryPointUnauthorizedHandler entryPointUnauthorizedHandler,
-                          JwtAuthenticationProvider jwtAuthenticationProvider) {
-        this.entryPointUnauthorizedHandler = entryPointUnauthorizedHandler;
-        this.jwtAuthenticationProvider = jwtAuthenticationProvider;
-    }
+    private final ObjectPostProcessor<Object> objectObjectPostProcessor;
 
+
+
+
+    private AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(jwtAuthenticationProvider);
+        return auth.build();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        AuthenticationManager authenticationManager = httpSecurity.getSharedObject(AuthenticationManager.class);
+        AuthenticationManagerBuilder builder = new AuthenticationManagerBuilder(objectObjectPostProcessor);
+        AuthenticationManager authenticationManager = authenticationManager(builder);
         httpSecurity
+                .csrf((csrf) -> csrf.disable())
+                .formLogin((formLogin) -> formLogin.disable())
+                .httpBasic((basic) -> basic.disable())
                 .addFilterBefore(
                         new JwtAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
-                .authenticationProvider(jwtAuthenticationProvider)
-                .formLogin((formLogin)-> formLogin.disable())
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/api", "/api/post/**", "/api/follow/**", "/api/unfollow/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .exceptionHandling((except)->except.authenticationEntryPoint(entryPointUnauthorizedHandler));

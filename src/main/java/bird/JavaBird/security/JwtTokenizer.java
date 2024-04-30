@@ -24,10 +24,9 @@ public class JwtTokenizer {
         this.secretKey = secret.getBytes(StandardCharsets.UTF_8);
     }
 
-    private String createToken(Long id, String email, String name, List<String> roles, byte[] secretKey) {
-        Claims claims = Jwts.claims().setSubject(email);
+    public String createToken(Long id, String name) {
+        Claims claims = Jwts.claims();
 
-        claims.put("roles", roles);
         claims.put("memberId", id);
         claims.put("name", name);
 
