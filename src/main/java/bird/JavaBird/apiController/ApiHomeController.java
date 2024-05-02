@@ -6,6 +6,7 @@ import bird.JavaBird.domain.Display;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
 import bird.JavaBird.dto.LoginInfoDto;
+import bird.JavaBird.security.login.Login;
 import bird.JavaBird.service.FollowService;
 import bird.JavaBird.service.MemberService;
 import bird.JavaBird.service.PostService;
@@ -29,9 +30,9 @@ public class ApiHomeController {
 
     private final FollowService followService;
     @GetMapping
-    public ApiResult<List<Display>> home(@ModelAttribute("loginForm") LoginDto form, Model model) {
+    public ApiResult<List<Display>> home(@ModelAttribute("loginForm") LoginDto form, @Login LoginInfoDto loginMember, Model model) {
         log.info("{}",SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        //log.info("home api controller {}", loginMember);
+        log.info("home api controller {}", loginMember);
         List<Post> posts = postService.findAll();
         List<Display> displays = new ArrayList<>();
         for (Post p : posts) {
@@ -42,9 +43,9 @@ public class ApiHomeController {
             d.setMemberId(p.getMemberId());
             d.setImageFile(p.getImageFile());
             d.setContents(p.getContents());
-            //if (loginMember != null) {
-            //    d.setFollow(followService.isFollow(loginMember.getId(), p.getMemberId()));
-            //}
+            if (loginMember != null) {
+                d.setFollow(followService.isFollow(loginMember.getMemberId(), p.getMemberId()));
+            }
             displays.add(d);
         }
         return success(displays);

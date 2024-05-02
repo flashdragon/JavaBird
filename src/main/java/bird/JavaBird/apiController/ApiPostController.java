@@ -1,12 +1,14 @@
 package bird.JavaBird.apiController;
 
 import bird.JavaBird.SessionConst;
+import bird.JavaBird.dto.LoginInfoDto;
 import bird.JavaBird.dto.PostDto;
 import bird.JavaBird.domain.ImageFile;
 import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
 import bird.JavaBird.exception.PostException;
 import bird.JavaBird.file.FileStore;
+import bird.JavaBird.security.login.Login;
 import bird.JavaBird.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -28,29 +30,24 @@ public class ApiPostController {
     private final FileStore fileStore;
 
     @PostMapping("/post")
-    public ApiResult<Post> uploadPost(@Valid @ModelAttribute PostDto form, BindingResult bindingResult, HttpServletRequest request) throws IOException {
+    public ApiResult<Post> uploadPost(@Valid @ModelAttribute PostDto form, BindingResult bindingResult, @Login LoginInfoDto loginMember) throws IOException {
         log.info("form ={}", form);
         if (bindingResult.hasErrors()) {
             throw new PostException("잘못된 형식입니다.");
         }
-        HttpSession session = request.getSession();
-        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         Post post = new Post();
-        post.setMemberId(loginMember.getId());
+        post.setMemberId(loginMember.getMemberId());
         post.setContents(form.getContents());
         return success(postService.save(post, form.getImageFile()));
     }
 
 
     @DeleteMapping("/post/{postId}")
-    public ApiResult<Boolean> deletePost(@PathVariable("postId") Long postId, HttpServletRequest request) throws IOException {
+    public ApiResult<Boolean> deletePost(@PathVariable("postId") Long postId, @Login LoginInfoDto loginMember) throws IOException {
         log.info("deletePost");
 
-        HttpSession session = request.getSession();
-        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        return success(postService.delete(postId, loginMember.getId()));
+        return success(postService.delete(postId, loginMember.getMemberId()));
     }
 
 }

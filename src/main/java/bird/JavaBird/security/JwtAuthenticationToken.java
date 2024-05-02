@@ -1,9 +1,11 @@
 package bird.JavaBird.security;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 @Getter
+@Slf4j
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private String token;
@@ -27,11 +29,11 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        return null;
+        return credentials;
     }
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return principal;
     }
 }

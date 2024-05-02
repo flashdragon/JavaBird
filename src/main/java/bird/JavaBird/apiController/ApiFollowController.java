@@ -2,6 +2,8 @@ package bird.JavaBird.apiController;
 
 import bird.JavaBird.SessionConst;
 import bird.JavaBird.domain.Member;
+import bird.JavaBird.dto.LoginInfoDto;
+import bird.JavaBird.security.login.Login;
 import bird.JavaBird.service.FollowService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,22 +27,16 @@ public class ApiFollowController {
 
 
     @PostMapping("/follow/{memberId}")
-    public ApiResult<Boolean> following(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
-        log.info("following api controller");
+    public ApiResult<Boolean> following(@PathVariable("memberId") Long memberId, @Login LoginInfoDto loginMember) throws IOException {
+        log.info("follow api controller {}", loginMember);
 
-        HttpSession session = request.getSession();
-        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        return success(followService.following(loginMember.getId(), memberId));
+        return success(followService.following(loginMember.getMemberId(), memberId));
     }
 
     @PostMapping("/unfollow/{memberId}")
-    public ApiResult<Boolean> unfollowing(@PathVariable("memberId") Long memberId, HttpServletRequest request) throws IOException {
-        log.info("following");
+    public ApiResult<Boolean> unfollowing(@PathVariable("memberId") Long memberId, @Login LoginInfoDto loginMember) throws IOException {
+        log.info("unfollow api controller {}", loginMember);
 
-        HttpSession session = request.getSession();
-        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        return success(followService.unfollowing(loginMember.getId(), memberId));
+        return success(followService.unfollowing(loginMember.getMemberId(), memberId));
     }
 }
