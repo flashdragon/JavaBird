@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .csrf((csrf) -> csrf.disable())
                 .formLogin((formLogin) -> formLogin.disable())
                 .httpBasic((basic) -> basic.disable())
+                .logout((logout) -> logout.disable())
                 .addFilterBefore(
                         new JwtAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> auth

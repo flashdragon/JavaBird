@@ -29,7 +29,6 @@ public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
         }
         if (authentication == null)
             return null;
-        JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
         Object principal = authentication.getPrincipal();
         LoginInfoDto user = (LoginInfoDto) principal;
         log.info("login argumentResolver = {}", principal);
