@@ -4,6 +4,8 @@ import bird.JavaBird.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -14,6 +16,7 @@ public class FollowServiceTest {
     MemberService memberService;
 
     @Test
+    @DirtiesContext
     void following() {
         Member member1 = new Member("김용재","123","123");
         memberService.save(member1);
@@ -24,6 +27,7 @@ public class FollowServiceTest {
     }
 
     @Test
+    @DirtiesContext
     void unfollowing() {
         Member member1 = new Member("김용재","123","123");
         memberService.save(member1);

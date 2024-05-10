@@ -5,6 +5,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+
 import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class MemberServiceTest {
@@ -12,6 +14,7 @@ public class MemberServiceTest {
     MemberService memberService;
 
     @Test
+    @DirtiesContext
     void save() {
         Member member = new Member("김용재","123","123");
         memberService.save(member);
@@ -20,6 +23,7 @@ public class MemberServiceTest {
     }
 
     @Test
+    @DirtiesContext
     void findById() {
         Member member1 = new Member("김용재","123","123");
         memberService.save(member1);
@@ -32,6 +36,7 @@ public class MemberServiceTest {
     }
 
     @Test
+    @DirtiesContext
     void login() {
         Member member = new Member("김용재","123","123");
         memberService.save(member);

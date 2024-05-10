@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ public class PostServiceTest {
 
 
     @Test
+    @DirtiesContext
     void save() throws IOException {
         Post post = new Post();
         post.setMemberId(1L);
@@ -29,6 +31,7 @@ public class PostServiceTest {
     }
 
     @Test
+    @DirtiesContext
     void findAll() throws IOException {
         Post post1 = new Post();
         post1.setMemberId(1L);
@@ -46,6 +49,7 @@ public class PostServiceTest {
     }
 
     @Test
+    @DirtiesContext
     void delete() throws IOException {
         Post post = new Post();
         post.setMemberId(1L);
