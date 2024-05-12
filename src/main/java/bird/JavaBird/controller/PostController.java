@@ -6,6 +6,7 @@ import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
 import bird.JavaBird.dto.PostDto;
 import bird.JavaBird.file.FileStore;
+import bird.JavaBird.file.LocalFileStore;
 import bird.JavaBird.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

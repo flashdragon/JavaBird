@@ -1,17 +1,11 @@
 package bird.JavaBird.apiController;
 
-import bird.JavaBird.SessionConst;
 import bird.JavaBird.dto.LoginInfoDto;
 import bird.JavaBird.dto.PostDto;
-import bird.JavaBird.domain.ImageFile;
-import bird.JavaBird.domain.Member;
 import bird.JavaBird.domain.Post;
 import bird.JavaBird.exception.PostException;
-import bird.JavaBird.file.FileStore;
 import bird.JavaBird.security.login.Login;
 import bird.JavaBird.service.PostService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +21,6 @@ import static bird.JavaBird.utils.ApiUtils.*;
 @RequestMapping("/api")
 public class ApiPostController {
     private final PostService postService;
-    private final FileStore fileStore;
 
     @PostMapping("/post")
     public ApiResult<Post> uploadPost(@Valid @ModelAttribute PostDto form, BindingResult bindingResult, @Login LoginInfoDto loginMember) throws IOException {
