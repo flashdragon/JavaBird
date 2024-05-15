@@ -30,10 +30,10 @@ public class ApiHomeController {
 
     private final FollowService followService;
     @GetMapping
-    public ApiResult<List<Display>> home(@ModelAttribute("loginForm") LoginDto form, @Login LoginInfoDto loginMember, Model model) {
+    public ApiResult<List<Display>> home(@ModelAttribute("loginForm") LoginDto form, @Login LoginInfoDto loginMember, Model model, @RequestParam(name = "page", defaultValue = "1") Integer page) {
         log.info("{}",SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         log.info("home api controller {}", loginMember);
-        List<Post> posts = postService.findAll();
+        List<Post> posts = postService.findAll(page);
         List<Display> displays = new ArrayList<>();
         for (Post p : posts) {
             //log.info("{}", p);

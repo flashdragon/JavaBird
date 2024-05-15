@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PostRepository {
     Post save(Post post);
-    List<Post> findAll();
+    List<Post> findAll(int page);
     void delete(Long postId, Long memberId);
 }

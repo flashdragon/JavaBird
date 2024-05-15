@@ -10,7 +10,7 @@ public interface PostMapper {
 
     void save(Post post);
 
-    List<Post> findAll();
+    List<Post> findAll(@Param("offset")int offset);
 
     void delete(@Param("postId")Long postId, @Param("memberId") Long memberId);
 }

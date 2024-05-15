@@ -28,9 +28,9 @@ public class JdbcTemplatePostRepository implements PostRepository {
         return post;
     }
     @Override
-    public List<Post> findAll() {
-        String sql = "select * from post";
-        return template.query(sql , postRowMapper());
+    public List<Post> findAll(int page) {
+        String sql = "select * from post limit ? offset ?";
+        return template.query(sql , postRowMapper(), 20, (page-1)*20);
     }
 
     @Override

@@ -33,8 +33,8 @@ public class PostService {
         return post;
     }
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
+    public List<Post> findAll(int page) {
+        return postRepository.findAll(page);
     }
 
     public boolean delete(Long postId, Long memberId) {

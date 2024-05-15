@@ -45,7 +45,7 @@ public class PostServiceTest {
         ImageFile imageFile2 = new ImageFile("222","222222");
         post2.setImageFile(imageFile2);
         postService.save(post2, new MockMultipartFile("filename", "", null, new byte[0]));
-        assertThat(postService.findAll().size()).isEqualTo(2);
+        assertThat(postService.findAll(1).size()).isEqualTo(2);
     }
 
  //   @Test
@@ -57,8 +57,8 @@ public class PostServiceTest {
         ImageFile imageFile = new ImageFile("123","123123");
         post.setImageFile(imageFile);
         postService.save(post, new MockMultipartFile("filename", "", null, new byte[0]));
-        assertThat(postService.findAll().size()).isEqualTo(1);
+        assertThat(postService.findAll(1).size()).isEqualTo(1);
         postService.delete(1L,1L);
-        assertThat(postService.findAll().size()).isEqualTo(0);
+        assertThat(postService.findAll(1).size()).isEqualTo(0);
     }
 }

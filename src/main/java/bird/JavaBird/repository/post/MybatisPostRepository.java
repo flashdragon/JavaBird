@@ -19,8 +19,9 @@ public class MybatisPostRepository implements PostRepository {
     }
 
     @Override
-    public List<Post> findAll() {
-        return postMapper.findAll();
+    public List<Post> findAll(int page) {
+        int offset = (page-1) * 20;
+        return postMapper.findAll(offset);
     }
 
     @Override

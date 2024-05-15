@@ -21,6 +21,8 @@
     <select id="findAll" resultMap="PostMap">
         select postid, memberid, name, storedname, contents
         from post
+        limit 20
+        offset #{offset}
     </select>
 
     <delete id="delete">
