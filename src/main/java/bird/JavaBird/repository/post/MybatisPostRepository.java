@@ -3,6 +3,7 @@ package bird.JavaBird.repository.post;
 import bird.JavaBird.domain.Post;
 import bird.JavaBird.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,9 @@ import java.util.List;
 public class MybatisPostRepository implements PostRepository {
     private final PostMapper postMapper;
     @Override
-    public Post save(Post post) {
+    @Async
+    public void save(Post post) {
         postMapper.save(post);
-        return post;
     }
 
     @Override

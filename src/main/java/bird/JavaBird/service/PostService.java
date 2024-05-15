@@ -23,7 +23,6 @@ public class PostService {
     private final PostRepository postRepository;
     private final FileStore fileStore;
 
-    @Async
     public void save(Post post, MultipartFile file) throws IOException {
         log.info("post service={}", post);
         if(!file.isEmpty()) {

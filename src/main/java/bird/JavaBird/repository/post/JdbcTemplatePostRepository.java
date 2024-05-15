@@ -6,6 +6,7 @@ import bird.JavaBird.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +23,10 @@ public class JdbcTemplatePostRepository implements PostRepository {
     }
 
     @Override
-    public Post save(Post post) {
+    @Async
+    public void save(Post post) {
         String sql = "insert into post(memberid, name, storedname, contents) values (?, ?, ?, ?)";
         template.update(sql, post.getMemberId(), post.getImageFile().getImageName(), post.getImageFile().getStoredName(), post.getContents());
-        return post;
     }
     @Override
     public List<Post> findAll(int page) {
