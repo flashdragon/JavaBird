@@ -18,17 +18,6 @@ public class PostServiceTest {
     PostService postService;
 
 
-//    @Test
-//    @DirtiesContext
-    void save() throws IOException {
-        Post post = new Post();
-        post.setMemberId(1L);
-        post.setContents("안녕하세요");
-        ImageFile imageFile = new ImageFile("123","123123");
-        post.setImageFile(imageFile);
-        Post savePost = postService.save(post, new MockMultipartFile("filename", "", null, new byte[0]));
-        assertThat(post).isEqualTo(savePost);
-    }
 
 //    @Test
 //    @DirtiesContext
