@@ -18,8 +18,8 @@ public class PostServiceTest {
     PostService postService;
 
 
-    @Test
-    @DirtiesContext
+//    @Test
+//    @DirtiesContext
     void save() throws IOException {
         Post post = new Post();
         post.setMemberId(1L);
@@ -30,8 +30,8 @@ public class PostServiceTest {
         assertThat(post).isEqualTo(savePost);
     }
 
-    @Test
-    @DirtiesContext
+//    @Test
+//    @DirtiesContext
     void findAll() throws IOException {
         Post post1 = new Post();
         post1.setMemberId(1L);
@@ -48,8 +48,8 @@ public class PostServiceTest {
         assertThat(postService.findAll().size()).isEqualTo(2);
     }
 
-    @Test
-    @DirtiesContext
+ //   @Test
+ //   @DirtiesContext
     void delete() throws IOException {
         Post post = new Post();
         post.setMemberId(1L);

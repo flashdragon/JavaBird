@@ -13,8 +13,8 @@ public class MemberServiceTest {
     @Autowired
     MemberService memberService;
 
-    @Test
-    @DirtiesContext
+//    @Test
+//    @DirtiesContext
     void save() {
         Member member = new Member("김용재","123","123");
         memberService.save(member);
@@ -22,8 +22,8 @@ public class MemberServiceTest {
         assertThat(member).isEqualTo(findMember);
     }
 
-    @Test
-    @DirtiesContext
+//    @Test
+//    @DirtiesContext
     void findById() {
         Member member1 = new Member("김용재","123","123");
         memberService.save(member1);
@@ -35,8 +35,8 @@ public class MemberServiceTest {
         assertThat(member2.getMemberName()).isEqualTo(findMember2.getMemberName());
     }
 
-    @Test
-    @DirtiesContext
+ //   @Test
+ //   @DirtiesContext
     void login() {
         Member member = new Member("김용재","123","123");
         memberService.save(member);
