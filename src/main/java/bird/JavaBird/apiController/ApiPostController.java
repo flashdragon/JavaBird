@@ -23,7 +23,7 @@ public class ApiPostController {
     private final PostService postService;
 
     @PostMapping("/post")
-    public ApiResult<Post> uploadPost(@Valid @ModelAttribute PostDto form, BindingResult bindingResult, @Login LoginInfoDto loginMember) throws IOException {
+    public ApiResult<String> uploadPost(@Valid @ModelAttribute PostDto form, BindingResult bindingResult, @Login LoginInfoDto loginMember) throws IOException {
         log.info("form ={}", form);
         if (bindingResult.hasErrors()) {
             throw new PostException("잘못된 형식입니다.");
@@ -32,7 +32,8 @@ public class ApiPostController {
         Post post = new Post();
         post.setMemberId(loginMember.getMemberId());
         post.setContents(form.getContents());
-        return success(postService.save(post, form.getImageFile()));
+        postService.save(post, form.getImageFile());
+        return success("ok");
     }
 
 
