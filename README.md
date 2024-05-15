@@ -7,6 +7,9 @@
 
 #### #Java #Spring #MyBatis
 
+## 부하 테스트
+https://www.notion.so/JavaBird-b20b5fc5e7eb4b4eb1aff00a8408c9e4?pvs=12
+
 
 # 정적인 class 의존관계
 ![image](https://github.com/flashdragon/JavaBird/assets/35221784/767649e3-a7b3-4792-ae37-3a00ebac14f9)
