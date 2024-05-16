@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 @Slf4j
@@ -27,7 +28,7 @@ public class S3FileStore implements FileStore{
     private String bucket;
     @Override
     public String getFullPath(String filename) {
-        return null;
+        return String.format("https://%s.s3.amazonaws.com/%s", bucket, filename);
     }
 
     @Override
@@ -35,14 +36,16 @@ public class S3FileStore implements FileStore{
         if (multipartFile.isEmpty()) {
             return null;
         }
-
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFileName = createStoreFileName(originalFilename);
+        log.info("Uploading file to S3: {}", storeFileName);
         ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType("image/"+extractExt(storeFileName));
-        PutObjectResult putObjectResult = amazonS3Client.putObject(new PutObjectRequest(bucket, storeFileName, multipartFile.getInputStream(), metadata)
-                                                            .withCannedAcl(CannedAccessControlList.PublicRead));
-
+        metadata.setContentType(multipartFile.getContentType());
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, storeFileName, inputStream, metadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead);
+            amazonS3Client.putObject(putObjectRequest);
+        }
         return new ImageFile(originalFilename, amazonS3Client.getUrl(bucket, storeFileName).toString());
     }
 

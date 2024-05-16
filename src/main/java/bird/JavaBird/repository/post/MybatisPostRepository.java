@@ -14,7 +14,6 @@ import java.util.List;
 public class MybatisPostRepository implements PostRepository {
     private final PostMapper postMapper;
     @Override
-    @Async
     public void save(Post post) {
         postMapper.save(post);
     }

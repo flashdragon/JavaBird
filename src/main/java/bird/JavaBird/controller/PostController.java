@@ -59,7 +59,7 @@ public class PostController {
         return new UrlResource("file:" + fileStore.getFullPath(imageName));
     }
 
-    @DeleteMapping("/post/{postId}")
+    @PostMapping("/post/delete/{postId}")
     public String deletePost(@PathVariable("postId") Long postId, HttpServletRequest request) throws IOException {
         log.info("deletePost");
 
