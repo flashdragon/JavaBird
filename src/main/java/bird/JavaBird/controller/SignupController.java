@@ -23,7 +23,7 @@ public class SignupController {
     @GetMapping("/signup")
     public String signUp(@ModelAttribute("signupForm") SignUpDto form) {
         log.info("signup controller");
-        return "signUp";
+        return "signup";
     }
     @Retry
     @PostMapping("/signup")
