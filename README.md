@@ -1,7 +1,14 @@
 ## 설명
+## 프로젝트 아키텍쳐
+![Untitled](https://github.com/flashdragon/JavaBird/assets/35221784/ef1abdf6-0556-45fe-b831-c30b9c2edb83)
+
+
 ### Java Spring으로 sns를 간단하게 만들어 보았습니다.
 
 #### #Java #Spring #MyBatis
+
+## 부하 테스트
+https://www.notion.so/JavaBird-b20b5fc5e7eb4b4eb1aff00a8408c9e4?pvs=12
 
 
 # 정적인 class 의존관계
