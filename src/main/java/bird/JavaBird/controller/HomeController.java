@@ -28,7 +28,7 @@ public class HomeController {
     private final FollowService followService;
     @Retry
     @GetMapping("/")
-    public String home(@ModelAttribute("loginForm") LoginDto form, @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model, @RequestParam(name = "page", defaultValue = "1") Integer page) {
+    public String home(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model, @RequestParam(name = "page", defaultValue = "1") Integer page) {
         log.info("home controller {}", loginMember);
         List<Post> posts = postService.findAll(page);
         List<Display> displays = new ArrayList<>();

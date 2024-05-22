@@ -8,12 +8,15 @@ import bird.JavaBird.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
@@ -21,20 +24,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
     private final MemberService memberService;
 
+    @GetMapping("/login")
+    public String loginHome(@ModelAttribute("loginForm") LoginDto form) {
+        return "login";
+    }
+
     @Retry
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("loginForm") LoginDto form, BindingResult bindingResult,
+                        @RequestParam(name = "redirectURL", defaultValue = "/") String redirectURL,
                         HttpServletRequest request) {
         log.info("log in controller");
         if (bindingResult.hasErrors()) {
-            return "home";
+            return "login";
         }
 
         Member loginMember = memberService.login(form.getMemberName(),form.getPassword());
 
         if (loginMember == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            return "home";
+            return "login";
         }
 
         //로그인 성공 처리
@@ -42,8 +51,8 @@ public class LoginController {
         HttpSession session = request.getSession();
         //세션에 로그인 회원 정보 보관
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-        log.info("login success redirect: /");
-        return "redirect:/";
+        log.info("login success redirect: {}", redirectURL);
+        return "redirect:" + redirectURL;
     }
 
     @PostMapping("/logout")
