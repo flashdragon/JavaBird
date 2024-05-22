@@ -30,7 +30,8 @@ https://www.notion.so/JavaBird-b20b5fc5e7eb4b4eb1aff00a8408c9e4?pvs=12
 
 # 그림
 ## 1. 홈 화면
-![image](https://github.com/flashdragon/JavaBird/assets/35221784/44b17db8-52c8-48ff-a171-e0e56cb9605d)
+![image](https://github.com/flashdragon/JavaBird/assets/35221784/45988136-f39e-47e6-8832-e61372b19d78)
+
 ## 2. 로그인 후
 ![image](https://github.com/flashdragon/JavaBird/assets/35221784/a2bef24e-c272-4183-a3f0-f3f18d5678f6)
 
